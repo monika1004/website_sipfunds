@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="author" content="SemiColonWeb" />
+
+	<script>
+
+				function calculate() {
+					var principal = parseFloat(document.getElementById("amtinvested").value);
+					var period = parseFloat(document.getElementById("nofoyears").value);
+					var freq = 1
+					var rateofreturn = parseFloat(document.getElementById("rateofreturn").value);
+					if (isNaN(principal)) {
+						alert("Please enter Amount Invested in each Installment");
+					} else if (isNaN(period)) {
+						alert("Please enter No of Years");
+					}else if (isNaN(freq)) {
+						alert("Please enter Frequency");
+					} else if (isNaN(rateofreturn)) {
+						alert("Please enter Rate of Return");
+					} else {
+						var instalment_amount = principal;
+						var no_of_compounding_periods = (12/freq)*period;
+						var int_rate_per_period = rateofreturn/(12/freq)/100;
+						var total_amount_invested = period*instalment_amount*12;
+						var expected_amount_on_maturity =  instalment_amount*((Math.pow(1+int_rate_per_period, no_of_compounding_periods)-1)/int_rate_per_period)*(1+int_rate_per_period);
+						document.getElementById("totalInvested").value = total_amount_invested.toFixed(2);
+						document.getElementById("expectedAmount").value = expected_amount_on_maturity.toFixed(2);
+
+					}
+
+				}
+				</script>
+
+
+
+
+	<!-- Stylesheets
+	============================================= -->
+	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/swiper.css" type="text/css" />
+	<link rel="stylesheet" href="css/dark.css" type="text/css" />
+	<link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+	<link rel="stylesheet" href="css/animate.css" type="text/css" />
+	<link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+	<link rel="stylesheet" href="css/responsive.css" type="text/css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lt IE 9]>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+
+	<!-- Document Title
+	============================================= -->
+	<title>Home SIPFunds</title>
+
+
+</head>
+
+<body class="stretched">
+
+	<!-- Document Wrapper
+	============================================= -->
+	<div id="wrapper" class="clearfix">
+
+		<!-- Header
+		============================================= -->
+		<header id="header" class="full-header">
+
+			<div id="header-wrap">
+
+				<div class="container clearfix">
+
+					<div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+					<!-- Logo
+					============================================= -->
+					<div id="logo">
+						<a href="#" class="standard-logo" data-dark-logo="images/logo-dark.png"><img src="images/logo.png" alt="SikFunds Logo"></a>
+						<a href="#" class="retina-logo" data-dark-logo="images/logo-dark@2x.png"><img src="images/logo@2x.png" alt="Canvas Logo"></a>
+					</div><!-- #logo end -->
+
+					<!-- Primary Navigation
+					============================================= -->
+					<nav id="primary-menu">
+
+						<ul>
+							<li class="current"><a href="#"><div>Home</div></a>
+							</li>
+							<li><a href="products.html"><div>Products</div></a>
+								<ul>
+
+									<li>
+
+									<a href="mutual.html"><div><i class="icon-stack"></i>Mutual Funds</div></a>
+										</li>
+
+									<li><a href="sip.html"><div><i class="icon-gift"></i>SIP/STP</div></a>
+
+									</li>
+									<li><a href="fixed.html"><div><i class="icon-umbrella"></i>Fixed Deposits & Bonds</div></a>
+
+
+
+
+											</li>
+
+
+
+									</li>
+									<li><a href="products.html"><div><i class="icon-line-layout"></i>Loans</div></a>
+
+									</li>
+
+									<li><a href="#"><div><i class="icon-align-justify2"></i>IPO</div></a>
+										<ul>
+											<li><a href="#"><div>COMING SOON</div></a></li>
+
+										</ul>
+									</li>
+
+
+
+
+
+								</ul>
+							</li>
+							<li class="mega-menu"><a href="about.html"><div>About Us</div></a>
+
+							</li>
+
+
+							<li><a href="#downloads"><div>Downloads</div></a>
+								<ul>
+									<li><a href="#"><div><i class="icon-stack"></i>IIN Form</div></a>
+										<ul>
+											<li><a href="images/doc/IIN_FORM.pdf"><div>Client Registration Form</div></a>
+											</li>
+										</ul>
+									</li>
+
+
+									<li><a href="#"><div><i class="icon-stack"></i>MUTUAL FUNDS</div></a>
+										<ul>
+											<li><a href="#"><div>AXIS MF</div></a>
+											<ul>
+													<li><a href="images/doc/AXIS MF  FORM.pdf" ><div>AXIS MF FORM</div></a></li>
+													<li><a href="AXIS MF  SIP.pdf"><div>AXIS MF SIP FORM</div></a></li>
+													<li><a href="images/doc/AXIS MF  TransactionSlip.pdf"><div>AXIS MF TRANSACTION SLIP</div></a></li>
+
+												</ul>
+											</li>
+											<li><a href="#"><div>canara mf</div></a>
+											<ul>
+													<li><a href="images/doc/CANARA ROB MF FORM.pdf"><div>CANARA ROB MF FORM</div></a></li>
+													<li><a href="images/doc/CANARA ROB SIP  FORM.pdf"><div>CANARA ROB MF SIP FORM</div></a></li>
+													<li><a href="images/doc/CAN_ROB_Transaction_Form.pdf"><div>CANARA ROB TRANSACTION FORM</div></a></li>
+
+												</ul>
+											</li>
+											<li><a href="#"><div>FRANKLIN MF</div></a>
+											<ul>
+													<li><a href="images/doc/FRANKLIN Equity.pdf"><div>FRANKLIN EQUITY</div></a></li>
+													<li><a href="images/doc/FRANKLIN SIP.pdf"><div>FRANKLIN SIP</div></a></li>
+													<li><a href="images/doc/FRANKLIN Transaction.pdf"><div>FRANKLIN TRANSACTION</div></a></li>
+
+												</ul>
+											</li>
+
+
+
+											<li><a href="#"><div>HDFC MF</div></a>
+											<ul>
+													<li><a href="images/doc/HDFC DEBT.pdf"><div>HDFC MF DEBT</div></a></li>
+													<li><a href="images/doc/HDFC_EQUITY.pdf"><div>HDFC MF EQUITY</div></a></li>
+													<li><a href="images/doc/HDFC SIP FORM.pdf"><div>HDFC MF SIP FORM</div></a></li>
+
+												</ul>
+											</li>
+											<li><a href="#"><div>IDFC MF</div></a>
+											<ul>
+													<li><a href="images/doc/IDFC MF FORM.pdf"><div>IDFC MF FORM</div></a></li>
+													<li><a href="images/doc/IDFC-SIP.pdf"><div>IDFC SIP FORM</div></a></li>
+
+												</ul>
+											</li>
+											<li><a href="#"><div>L&T MF</div></a>
+											<ul>
+													<li><a href="images/doc/L&T MF FORM.pdf"><div>L&T MF FORM</div></a></li>
+													<li><a href="images/doc/L&T MF SIP-Investment-form.pdf"><div>L&T MF SIP INVESTMENT FORM</div></a></li>
+													<li><a href="images/doc/L&T MF Transaction.pdf"><div>L&T MF TRANSACTION FORM</div></a></li>
+
+												</ul>
+											</li>
+											<li><a href="#"><div>SBI MF</div></a>
+											<ul>
+													<li><a href="images/doc/SBI  DEBT.pdf"><div>SBI MF DEBT</div></a></li>
+													<li><a href="images/doc/SBI MF EQUITY.pdf"><div>SBI MF EQUITY</div></a></li>
+													<li><a href="images/doc/SBI MF TRANSACTION.pdf"><div>SBI MF TRANSACTION</div></a></li>
+													<li><a href="images/doc/SBI SIP NACH.pdf"><div>SBI SIP NACH</div></a></li>
+
+												</ul>
+											</li>
+											<li><a href="#"><div>TATA MF</div></a>
+											<ul>
+													<li><a href="images/doc/TATA MF FORM.pdf"><div>TATA MF FORM</div></a></li>
+													<li><a href="images/doc/TATA SIP FORM.pdf"><div>FTATA SIP FORM</div></a></li>
+
+
+												</ul>
+											</li>
+
+										</ul>
+									</li>
+									<li><a href="#"><div><i class="icon-stack"></i>FIXED DEPOSITS</div></a>
+
+										<ul>
+											<li><a href="images/doc/BAJAJ%20FINANCE%20LIMITED.pdf"><div>BAJAJ FINANCE LIMITED</div></a></li>
+											<li><a href="images/doc/HDFC%20lLTD%20(Double%20Money%20Plan).pdf"><div>HDFC ILTD (DOUBLE MONEY PLAN)</div></a></li>
+											<li><a href="images/doc/LIC%20HOUSING%20FINANCE%20LIMITED.pdf"><div>LIC HOUSING FINANCE LIMITED</div></a></li>
+											<li><a href="images/doc/MAHINDRA%20FINANCE.pdf"><div>MAHINDRA FINANCE</div></a></li>
+											<li><a href="#"><div>NHAI 54 EC BOND @ 6% P.A.</div></a></li>
+											<li><a href="images/doc/PNB%20HOUSING%20FINANCE%20LIMITED.pdf"><div>PNB HOUSING FINANCE LIMITED</div></a></li>
+											<li><a href="#"><div>REC Limited 54 EC BOND @ 6% P.A.</div></a></li>
+											<li><a href="images/doc/SHRIRAM%20UNNATI.pdf"><div>SHRIRAM UNNATI</div></a></li>
+
+
+											</li>
+
+
+										</ul>
+									</li>
+									<li><a href="images/doc/Form%2015G.pdf"><div><i class="icon-line-layout"></i>FORM 15G</div></a>
+
+									</li>
+
+									<li><a href="images/doc/Form15H.pdf"><div><i class="icon-line-layout"></i>FORM 15H</div></a>
+
+									</li>
+
+
+
+
+
+								</ul>
+							</li>
+
+
+							<li class="mega-menu"><a href="blog.html"><div>Knowledge Center</div></a>
+
+							</li>
+							<li><a href="https://camskra.com/"><div>KYC Check</div></a>
+
+							</li>
+							<li class="mega-menu"><a href="contact-2.html"><div>contact Us</div></a>
+								<div class="mega-menu-content clearfix">
+
+								</div>
+							</li>
+						</ul>
+
+
+
+
+					</nav><!-- #primary-menu end -->
+
+				</div>
+
+			</div>
+
+		</header><!-- #header end -->
+
+		<section id="slider" class="slider-parallax swiper_wrapper clearfix" data-loop="true" data-nav="true" data-autoplay="4000">
+
+<!--		<div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="true" data-autoplay="5000" data-pagi="false" data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6" style="padding: 20px 0;">
+-->
+
+
+			<div class="slider-parallax-inner">
+
+				<div class="swiper-container swiper-parent">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide dark" style="background-image: url('images/slider/swiper/money-1132279.png');">
+							<div class="container clearfix">
+								<div class="slider-caption slider-caption-center">
+									<h2 data-caption-animate="fadeInUp">Welcome to SIPFunds</h2>
+									<p data-caption-animate="fadeInUp" data-caption-delay="200">Client based advisory services and providing investment related essential information to meet their financial goals on a long term basis.</p>
+
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide dark">
+							<div class="container clearfix">
+								<div class="slider-caption slider-caption-center">
+									<h2 data-caption-animate="fadeInUp">TRANSFER YOUR HOME LOAN</h2>
+									<p data-caption-animate="fadeInUp" data-caption-delay="200">Save your EMI</p>
+									<P data-caption-animate="fadeInUp" data-caption-delay="200"> Take advantage of the new rate and lower their EMI </p>
+								</div>
+							</div>
+							<div class="slider-caption slider-caption-center">
+							<div class="container clearfix">
+								<div class="slider-caption">
+									<h2 data-caption-animate="fadeInUp">Take right step</h2>
+									<p data-caption-animate="fadeInUp" data-caption-delay="200">Save your EMI</p>
+									<P data-caption-animate="fadeInUp" data-caption-delay="200"> Take advantage of the new rate and lower their EMI </p>
+								</div>
+						</div></div></div>
+						<div class="swiper-slide" style="background-image: url('images/slider/swiper/money-1132279.png'); background-position: center top;">
+							<div class="container clearfix">
+								<div class="slider-caption">
+									<h2 data-caption-animate="fadeInUp">Track your Investment</h2>
+									<p data-caption-animate="fadeInUp" data-caption-delay="200">PORTFOLIO TRACJKER WITH IN-DEPTH WITH REPORTS & PLANNING TOOLS.</p>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url('images/slider/swiper/achievement-18134_1920.jpg'); background-position: center top;">
+							<div class="container clearfix">
+								<div class="slider-caption">
+									<h2 data-caption-animate="fadeInUp">Take the right step invest regularly</h2>
+									<p data-caption-animate="fadeInUp" data-caption-delay="200">:) Fix your Goal <br/>:) Evaluate Risk <br/>:) Select Product<br/>:) Design Portfolio<br/>:) Invest Regularly <br/></p>
+								</div>
+							</div>
+						</div>
+						<div class="swiper-slide" style="background-image: url('images/slider/swiper/seniors-1505935.jpg'); background-position: center top;">
+							<div class="container clearfix" text-align="left">
+								<div class="slider-caption" text-align="left">
+									<h2 text-align="left" data-caption-animate="fadeInUp" >Plan your retirement</h2>
+									<p text-align="left" data-caption-animate="fadeInUp" data-caption-delay="200">INVEST SMALL AMOUNT MONTHLY AND <br/>RETIRE WITH A HUGE CORPS</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="slider-arrow-left"><i class="icon-angle-left"></i></div>
+					<div id="slider-arrow-right"><i class="icon-angle-right"></i></div>
+
+				</div>
+
+			</div>
+
+		</section>
+		<!-- Content
+		============================================= -->
+<section id="content">
+ <div class="content-wrap notoppadding">
+
+		<div class="container clearfix">
+<br><br>
+					 <div class="divcenter center clearfix" style="max-width: 900px;">
+							 <img  src="images/mac.png" )" alt="" style="margin-bottom:5px; max-width: 25%;" >
+							 <h2>Welcome! Great results can be acheived with great talent.</h2>
+							 <h3>Get amazing results by working with the best trainers, consultants, coaches and auditors across the world.</h3>
+							 <a href="/account/login/" class="button button-3d button-small">Consultant Login</a>
+							 <a href="/account/login/" class="button button-3d button-small" style="width:167.19px">Corporate Login</a>
+					 </div>
+					 </div>
+
+<!--
+function Blank_TextField_Validator()
+{
+// Check the value of the element named text_name
+// from the form named text_form
+if (text_form.uname.value == "")
+{
+// If null display and alert box
+alert("Please enter your username");
+// Place the cursor on the field for revision
+text_form.uName.focus();
+// return false to stop further processing
+return (false);
+}
+
+
+
+
+// If text_name is not null continue processing
+return (true);
+}
+
+</script>
+
+
+   <form name="login" action="#" target="_blank" method="post">
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" class="login">
+	<tr><td>Username</td><td align="center"><input type="text" name="uName" size="35" id="uName" /></td></tr>
+	<br/>
+	<tr><td>Password</td>
+		<td align="center">
+			<input type="password" name="password" size="35" id="password" />
+		</td>
+	</tr>
+	<tr><td>&nbsp;</td><br/>
+		<td align="center"><br/><span class="buttons"><input type="image" width="120" height="40" src="images/loginB.png" name="login_page" id="login_page" value="login_page"></span>
+		</td>
+	</tr>
+	</table>
+	</form>
+
+
+							</div>
+
+
+</div>
+<div class="col_half nobottommargin col_last">
+<div class="span6 recent_news"><div class="header"><dl class="dl-horizontal"><dt style="display:none;"></dt><dd style="margin-left:0px"><h4>Recent News</h4></dd></dl></div><div class="row-fluid"><div class="span12"><dl class="news-article blog-article style_2 dl-horizontal"><dt>
+                  <div class="dt"><span class="date">01-JAN</span></div><div class="icon_"><i class="moon-pencil"></i></div></dt><dd>
+                  <h5><a href="#">Invest in Franklin Templeton</a></h5><p align="justify">
+        People working with images in Google Slides on the web will now have the ability to adjust their color, transparency, brightness, and contrast.
+
+			</p><a href="#" class="read_m"><span>Read More</span> <span class="direct_btn"><i class="moon-arrow-right-2"></i></span></a></dd></dl><dl class="news-article blog-article style_2 dl-horizontal"><dt><div class="dt"><span class="date">02-jan</span></div><div class="icon_"><i class="moon-pencil"></i></div></dt><dd><h5><a href="#">HDFC Growth Fund</a></h5><p align="justify">This launch allows Google Apps customers to share links to Hangouts video calls so that external guests may request to join if not explicitly invited. This will also help your guests avoid errors when joining with alternate Google accounts.</p><a href="#" class="read_m"><span>Read More</span> <span class="direct_btn"><i class="moon-arrow-right-2"></i></span></a></dd></dl></div></div></div>
+
+
+
+</div>
+
+					<div class="clear"></div>
+				<!-- about us-------------------------------->
+
+				</div>
+				<div class="clearfix">
+
+
+					<div class="promo parallax promo-dark promo-flat promo-full" style="padding: 40px !important; background-image: url(&quot;images/footer.jpg&quot;); background-size: 100%; background-position: 50% 13.5234px;" data-stellar-background-ratio="0.5">
+					            <div class="container clearfix">
+					                <h3>Call us today at <span>+91 9876543210</span> or Email us at <span>moreinfo@sipfunds.co</span></h3>
+					                <a href="#" class="button button-light button-xlarge button-border button-rounded">CONTACT Now</a>
+					            </div>
+					        </div>
+
+				</div>
+
+<br>
+						<div class="container clearfix">
+
+				<h3 class="center">Testimonials </h3>
+
+									<div id="oc-testi" class="owl-carousel testimonials-carousel carousel-widget" data-margin="20" data-items-xs="1" data-items-sm="2" data-items-lg="3">
+
+										<div class="oc-item">
+											<div class="testimonial">
+												<div class="testi-image">
+													<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
+												</div>
+												<div class="testi-content">
+													<p>Incidunt deleniti blanditiis quas aperiam recusandae consequatur ullam quibusdam cum libero illo rerum repellendus!</p>
+													<div class="testi-meta">
+														John Doe
+														<span>XYZ Inc.</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="oc-item">
+											<div class="testimonial">
+												<div class="testi-image">
+													<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
+												</div>
+												<div class="testi-content">
+													<p>Natus voluptatum enim quod necessitatibus quis expedita harum provident eos obcaecati id culpa corporis molestias.</p>
+													<div class="testi-meta">
+														Collis Ta'eed
+														<span>Envato Inc.</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="oc-item">
+											<div class="testimonial">
+												<div class="testi-image">
+													<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
+												</div>
+												<div class="testi-content">
+													<p>Fugit officia dolor sed harum excepturi ex iusto magnam asperiores molestiae qui natus obcaecati facere sint amet.</p>
+													<div class="testi-meta">
+														Mary Jane
+														<span>Google Inc.</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="oc-item">
+											<div class="testimonial">
+												<div class="testi-image">
+													<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
+												</div>
+												<div class="testi-content">
+													<p>Similique fugit repellendus expedita excepturi iure perferendis provident quia eaque. Repellendus, vero numquam?</p>
+													<div class="testi-meta">
+														Steve Jobs
+														<span>Apple Inc.</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="oc-item">
+											<div class="testimonial">
+												<div class="testi-image">
+													<a href="#"><img src="images/testimonials/1.jpg" alt="Customer Testimonails"></a>
+												</div>
+												<div class="testi-content">
+													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, perspiciatis illum totam dolore deleniti labore.</p>
+													<div class="testi-meta">
+														Jamie Morrison
+														<span>Adobe Inc.</span>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+							</div>
+
+
+
+
+
+
+
+				<div class="container clearfix">
+
+					<div id="oc-clients" class="owl-carousel owl-carousel-full image-carousel carousel-widget" data-margin="30" data-loop="true" data-nav="true" data-autoplay="800" data-pagi="false" data-items-xxs="2" data-items-xs="3" data-items-sm="4" data-items-md="5" data-items-lg="6" style="padding: 20px 0;">
+
+						<div class="oc-item"><img src="images/clients/axis_mf.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/cananra_mf.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/franklin_mf.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/hdfc_mf.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/idfc_mf.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/Lnt_mf.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/sbiMFLogo.jpg" alt="Clients"></div>
+						<div class="oc-item"><img src="images/clients/tata_mutualfund.jpg" alt="Clients"></div>
+
+
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+		</section><!-- #content end -->
+
+		<!-- Footer
+		============================================= -->
+
+			<!-- Copyrights
+			============================================= -->
+
+			<div id="copyrights" style="background: url('images/footer-bg.jpg'); color: #EEEEEE">
+
+			 <div class="clearfix">
+
+					 <div class="col_half" style="padding-left: 10px;">
+							 Copyrights &copy; 2016 All Rights Reserved by SIP Funds.<br>
+
+							 Design and Developed by <a href="http://www.octraxsystems.com" target="_blank" style="color:#E67E22">Octrax Systems</a>
+					 </div>
+
+					 <div class="col_half col_last tright" style="color:#E67E22">
+							 <div class="fright clearfix">
+									 <a href="#" class="social-icon si-small si-borderless si-facebook">
+											 <i class="icon-facebook"></i>
+											 <i class="icon-facebook"></i>
+									 </a>
+
+									 <a href="#" class="social-icon si-small si-borderless si-twitter">
+											 <i class="icon-twitter"></i>
+											 <i class="icon-twitter"></i>
+									 </a>
+
+									 <a href="#" class="social-icon si-small si-borderless si-linkedin">
+											 <i class="icon-linkedin"></i>
+											 <i class="icon-linkedin"></i>
+									 </a>
+							 </div>
+
+							 <div class="clear"></div>
+
+
+					 </div>
+
+			 </div>
+
+	 </div><!-- #copyrights end -->
+
+		</footer><!-- #footer end -->
+
+	</div><!-- #wrapper end -->
+
+	<!-- Go To Top
+	============================================= -->
+	<div id="gotoTop" class="icon-angle-up"></div>
+
+	<!-- External JavaScripts
+	============================================= -->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/plugins.js"></script>
+	<script type="text/javascript" src="js/calculate.js"></script>
+
+	<!-- Footer Scripts
+	============================================= -->
+	<script type="text/javascript" src="js/functions.js"></script>
+
+</body>
+</html>

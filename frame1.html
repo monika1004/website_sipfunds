@@ -1,0 +1,711 @@
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head id="Head2"><link rel="stylesheet" href="widgets.css" type="text/css" media="screen" /></head>
+
+<body>
+
+    <form name="form1" method="post" action="http://www.investmentyogi.com/widgets/RetirementCorpusCalc.aspx" id="form1">
+
+<div>
+
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTgyMjExNTM0Mw9kFgICAxBkZBYCAgEPZBYCAgEPZBYGAgYPFgIeBWNsYXNzBRF0YXhIb21lQ2FsY3VsYXRvchYEZg9kFgJmDxYCHwAFA2NhcGQCBg9kFgJmD2QWAmYPFgIeB1Zpc2libGVoZAIIDxYCHwAFDnRheGhvbWVTdW1tYXJ5ZAIMD2QWAgIBDxYEHwAFDnRheENhbGNidG5ibHVlHwFnZGR18PL8TN7UOKqIrQ4wr6Z8je9/UQ==" />
+
+</div>
+
+
+
+
+
+<script src="http://www.investmentyogi.com/Themes/yogi/javascript/calculators/HtmlCanvas.js" type="text/javascript"></script>
+
+<script src="http://www.investmentyogi.com/Themes/yogi/javascript/iy_widgets.js" type="text/javascript"></script>
+
+<script src="http://www.investmentyogi.com/Themes/yogi/javascript/calculators/iy_calculator_email.js" type="text/javascript"></script>
+
+<div>
+
+
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="4EF351C5" />
+
+</div>
+
+    <div>
+    <div id="widgetcontainer" style="width:235px;" class="widgetblock">
+
+            <script src="http://www.investmentyogi.com/Themes/yogi/javascript/jquery/1.2.6/jquery.packed.js?Version=3.1.20917.1142" type="text/javascript"></script>
+
+<script src="http://www.investmentyogi.com/Themes/yogi/javascript/iy_widgets.js?Version=3.1.20917.1142" type="text/javascript"></script>
+
+<script src="http://www.investmentyogi.com/Themes/yogi/javascript/iy_calculators.js?Version=3.1.20917.1142" type="text/javascript"></script>
+
+
+
+<script type="text/javascript" language="javascript">
+
+
+
+var rcc_InflationRate = null;
+
+var rcc_ReturnRate = null;
+
+var rcc_YearsToRetire = null;
+
+var rcc_YearsInRetirement = null;
+
+var rcc_AmtreqMonthly = null;
+
+$(document).ready(function() {
+
+    rcc_InflationRate = $("[id$=RCC_InflationRate_TB]");
+
+    rcc_ReturnRate = $("[id$=RCC_ReturnRate_TB]");
+
+    rcc_YearsToRetire = $("[id$=RCC_YearsToRetire_TB]");
+
+    rcc_YearsInRetirement = $("[id$=RCC_YearsInRetirement_TB]");
+
+    rcc_AmtreqMonthly = $('[id$=RCC_MonthlyAmtReq_TB]');
+
+    rcc_InflationRate.blur(function() {
+
+        validateText($(this));
+
+    });
+
+    rcc_YearsToRetire.blur(function() {
+
+        validateText($(this));
+
+    });
+
+    rcc_YearsInRetirement.blur(function() {
+
+        validateText($(this));
+
+    });
+
+    rcc_AmtreqMonthly.blur(function() {
+
+        validateText($(this));
+
+    });
+
+    DisplayRateOfReturn()
+
+});
+
+
+
+function clearBlocks() {
+
+
+
+    $("#Message").hide();
+
+    $("#RCC_calcResults").css("visibility", "hidden");
+
+}
+
+
+
+function validateRetirementCorpusCalc() {
+
+    var allGood = validateText(rcc_InflationRate);
+
+    allGood = validateText(rcc_AmtreqMonthly);
+
+    allGood = validateText(rcc_YearsInRetirement);
+
+    allGood = validateText(rcc_YearsToRetire);
+
+    return allGood;
+
+}
+
+
+
+var ComputeFunction = function IY_CalculateRetirementCorpus(btnId) {
+
+
+
+    if(validateRetirementCorpusCalc())
+
+    {
+
+        clearBlocks();
+
+        
+
+        var effRate = calc_ComputeEffectiveRate(rcc_ReturnRate.val(), rcc_InflationRate.val());
+
+        var pmt = rcc_AmtreqMonthly.val();
+
+        
+
+        //Calculate Retirement corpus required Today    
+
+        var reqToday = Math.round(calc_calculatePVOfAnnuity(pmt, effRate, rcc_YearsInRetirement.val(), "monthly", 0));
+
+        //Calculate Corpus required on Retirement
+
+        var reqOnRet = Math.round(calc_calculateFVOfSingleSum(reqToday, rcc_InflationRate.val(), rcc_YearsToRetire.val(), "annual", 0));
+
+
+
+        //Display the calculated values in UI
+
+        //$('[id$=RCC_RealRate_TB]').val(RoundNumber(effRate, 2));
+
+        
+
+        //Display results after calculation
+
+        $('#RCC_RetirementCorpusReqToday_SP').html(numberFormat(reqToday,"Rs. "));
+
+        $('#RCC_CorpusReqOnRetirement_SP').html(numberFormat(reqOnRet,"Rs. "));
+
+
+
+        $("#RCC_calcResults").css("visibility", "visible");
+
+        
+
+//        $('[id*=ButtonRow]').hide();
+
+//        $('[id*=usercontroldiv]').show();
+
+        //        $('[id*=emailcalculationdiv]').show();
+
+
+
+        $('[id*=ButtonRow]').hide();
+
+        $('[id*=head]').hide();
+
+        $('#SummaryString').html(CreateSummaryString());
+
+        $('[id*=CalculateSummary]').show();
+
+        $('[id*=EmailCalculationTool_newcalcbutton]').hide();
+
+        //$('[id*=usercontroldiv]').show();
+
+        $('[id*=emailcalculationdiv]').show();
+
+        $('[id*=Recalculate_Button_div]').hide();
+
+        $('.AfterCalculation').show();
+
+        $("#RCC_calcResults").show();
+
+
+
+
+
+
+
+    }
+
+}
+
+function DisplayRateOfReturn()
+
+{
+
+    var inflationRate = Number(rcc_InflationRate.val());
+
+    var returnRate = inflationRate + 1;
+
+    rcc_ReturnRate.val(returnRate);
+
+}
+
+
+
+function CreateSummaryString() {
+
+  //  alert("Create Summary String Function Calledd....");
+
+    $('[id*=head]').hide();
+
+     var yrstoretire = $('[id$=RCC_YearsToRetire_TB]').val();
+
+    var yrsinretire = $('[id$=RCC_YearsInRetirement_TB]').val();
+
+    var monthlyamount = $('[id$=RCC_MonthlyAmtReq_TB]').val();
+
+    var inflationrate = $('[id$=RCC_InflationRate_TB]').val();
+
+    var returnrate = $('[id$=RCC_ReturnRate_TB]').val();
+
+//    var retirement_corpus = $('[id$=RCC_RetirementCorpusReqToday_SP]').val();
+
+//    var corpus_required = $('[id$=RCC_CorpusReqOnRetirement_SP]').val();
+
+
+
+
+
+    // console.log('loanamount ' + loanamount + 'Period ' + Period + 'Interest rate ' + Interestrate);
+
+    var summary = 'With';
+
+
+
+    if (yrstoretire > 0) {
+
+
+
+
+
+        summary = summary + ' years to retire being ' + '<b>' + yrstoretire + '</b>' + '<b> years' + '</b>';
+
+    }
+
+    if (yrsinretire > 0) {
+
+
+
+
+
+        summary = summary + ',years in retirement ' + '<b>' + yrsinretire + '</b>' + '<b> years' + '</b>';
+
+    }
+
+
+
+
+
+   
+
+    if (inflationrate > 0) {
+
+
+
+
+
+        summary = summary + ', inflation rate ' + '<b>' + inflationrate + '</b>' + '<b>% p.a' + '</b>';
+
+    }
+
+    if (returnrate > 0) {
+
+
+
+
+
+        summary = summary + ' and return rate ' + '<b>' + returnrate + '</b>' + '<b>% p.a' + '</b>';
+
+    }
+
+
+
+
+
+    console.log(summary);
+
+    return summary;
+
+
+
+}
+
+
+
+function resetHLE() {
+
+    clearBlocks();
+
+}
+
+</script>
+
+
+
+<div id="calccontainer">
+
+   <div style="text-align:justify;">
+
+<h2>How Much Do I Need To Retire?</h2>
+
+
+<label for="login-form-username">Years in retirement:&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"><div class="tooltip"><img src="C:\Users\Octrax Systems\Desktop\New folder\images\help_out_lt.gif" >
+  <span class="tooltiptext"> How many years of retirement you expect to live. For example you retire at 55 and expect to live till 75 then you should enter 20</span>
+</div><br/>
+
+<label for="login-form-username">Years to retire: &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label><input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"><div class="tooltip"><img src="C:\Users\Octrax Systems\Desktop\New folder\images\help_out_lt.gif" >
+  <span class="tooltiptext">How many years are left to your retirement? For example if you are 30 and you expect to retire at 55 you should enter 25.</span>
+</div><br/>
+
+
+
+<label for="login-form-username">Years in retirement:&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"><div class="tooltip"><img src="C:\Users\Octrax Systems\Desktop\New folder\images\help_out_lt.gif" >
+  <span class="tooltiptext"> How many years of retirement you expect to live. For example you retire at 55 and expect to live till 75 then you should enter 20</span>
+</div><br/>
+
+
+<label for="login-form-username">Monthly retirement<br/> amount required*:Rs.&nbsp;</label><input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"><div class="tooltip"><img src="C:\Users\Octrax Systems\Desktop\New folder\images\help_out_lt.gif" >
+  <span class="tooltiptext"> Monthly expenses you need for a comfortable living (at present) </span>
+</div><br/>
+<label for="login-form-username">Inflation rate % p.a.* :</label><input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"><div class="tooltip"><img src="C:\Users\Octrax Systems\Desktop\New folder\images\help_out_lt.gif" >
+  <span class="tooltiptext">Average inflation rate; Last 10 years average inflation is close 6%. </span>
+</div><br/>
+<label for="login-form-username">Return rate % p.a. :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" id="login-form-username" name="login-form-username" value="" class="form-control"><div class="tooltip"><img src="C:\Users\Octrax Systems\Desktop\New folder\images\help_out_lt.gif" >
+  <span class="tooltiptext">Average return expected on your savings and investments is 1% higher than the Inflation rate. </span>
+</div>
+</table>
+
+
+    <div><span id="Message" name="Message" class="msgalert" style="display:none;margin-left:0px;"></span></div>
+
+    <div id="RCC_calcResults" style="visibility:hidden" class="calcSummary">
+
+        <table id="BackButton1_summaryTable" cellpadding="0" cellspacing="0" class="taxhomeSummary">
+
+	<tr>
+
+		<td style="width:120px">Retirement corpus required today</td>
+
+		<td align="center"><span class="value1" id="RCC_RetirementCorpusReqToday_SP" ></span></td>
+
+	</tr>
+
+	<tr>
+
+		<td style="width:120px ">Corpus required on retirement</td>
+
+		<td align="center"><span class="value1" id="RCC_CorpusReqOnRetirement_SP"  ></span></td>
+
+	</tr>
+
+</table>
+
+
+
+         
+
+    </div>
+
+    
+
+
+
+   
+
+
+
+    <div id="CalculateSummary" style="display:none;">
+
+        <table id="BackButton1_Table1">
+
+	<tr>
+
+		<td colspan="2" align="center" style="font-weight: normal; font-size: 9px">
+
+                    <span id='SummaryString'></span> 
+
+                </td>
+
+	</tr>
+
+</table>
+
+
+
+            </div>
+
+            <div id="BackButton1_ButtonRow">
+
+    <div id="btn">
+
+        <input name="BackButton1$RCC_bottomcalcbutton" type="button" id="BackButton1_RCC_bottomcalcbutton" value="Calculate" onclick="ComputeFunction()" tabindex="5" class="taxCalcbtnblue" />
+
+    </div>
+
+    </div>
+ </div>
+    
+
+<br/>
+
+<script type="text/javascript">
+
+    // email button script
+
+    function emailbuttonclick() {
+
+        ShowCalculatorView();
+
+        //wait for 1 second and send calculation on email
+
+        setTimeout(sendCalculationAsEmail, 500);
+
+    }
+
+
+
+
+
+    function sendCalculationAsEmail() {
+
+        var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        html2canvas(document.body, { //Capturing image using html2canvas
+
+            onrendered: function (canvas) {
+
+                var img = canvas.toDataURL("image/png");
+
+                var email_address = $('[id$=emailtextbox]').val();
+
+                var calculatorhtml = img;
+
+                var CalculatorType = 'RetirementCorpus Calculator'; //getting the CalculatorType
+
+                if ($('[id*=emailtextbox]').val().match(mailformat)) {
+
+                    var emaildata = new Object();
+
+                    emaildata.email = email_address;
+
+                    emaildata.calculatorhtml = calculatorhtml;
+
+                    emaildata.calculatortype = CalculatorType;
+
+                    $('[id*=emailbutton]').css('display', 'none');
+
+                    $("#iysendingcalc").css('display', 'block');
+
+                    $('[id*=emailform]').css('height', '30px');
+
+
+
+                    sendemail(emaildata, onSucessEmail, sendEmail_onError)
+
+                }
+
+                else {
+
+                    alert("Please enter a valid email address!");
+
+                    $("input[id$='emailtextbox']").focus();
+
+                    return false;
+
+                }
+
+            },
+
+            //Height and Width of Captured image
+
+            height: 331,
+
+            width: 250
+
+
+
+        });
+
+    }
+
+
+
+    function newbuttonclick() {
+
+        window.location.reload();
+
+
+
+    }
+
+
+
+    function emailcalculation() {
+
+        $('[id*=emailcalculationdiv]').hide();
+
+        $('[id*=emailform]').show();
+
+
+
+
+
+
+
+    }
+
+
+
+    function ReCalculate() {
+
+
+
+        ComputeFunction();
+
+
+
+    }
+
+
+
+    //showing the calculator view
+
+    function CalculatorView() {
+
+
+
+        
+
+        $('[id*=head]').show();
+
+        $('[id*=CalculateSummary]').hide();
+
+        $('[id*=ButtonRow]').show();
+
+        
+
+        $('.calculatebuttoncontainer').show();
+
+        // $('.ButtonRow').show(); // this is for showing reset and submit buttons
+
+
+
+        //hide the summary
+
+
+
+        //hide the email form
+
+        $('.emailbuttoncontainer').hide();
+
+        $("#TaxSummary").hide();
+
+        $("#EmiSummaryString").hide();
+
+        $(".msgalert").hide();
+
+ //in retirement corpus calculator summary id is different from CalculateSummary..so we are hiding summary using RCC_calcresults
+
+        $("#RCC_calcResults").hide();
+
+        // hiding summary in crorepati calculators
+
+
+
+        $('#HMS_calcResults').hide();
+
+        $('#HMT_calcResults').hide();
+
+        // hiding the partner links
+
+        $('.AfterCalculation').hide();
+
+      //  hiding summary in life insurance calculator
+
+        $("#EPC_calcResults").hide();
+
+       
+
+    }
+
+    function ShowCalculatorView() {
+
+        //Hiding the Calculator fields User Email 
+
+        //$('.calculatorfields').show();
+
+
+
+        //Hide Calculator Containr Div
+
+        //$('.calccontainer').hide();
+
+        //$('.AfterCalculation').hide();
+
+        //show the calculate button
+
+        //$('.calculatebuttoncontainer').show();
+
+        //hide the summary
+
+
+
+        //hide the email form
+
+        $('.emailbuttoncontainer').hide();
+
+        //$("#TaxSummary").hide();
+
+        //  $("#EmiSummary").show();
+
+        
+
+        
+
+        $(".msgalert").hide();
+
+    }
+
+
+
+    function ShowEmailView() {
+
+        console.log('Inside ShowEmailView');
+
+        $('.calculatorfields').hide();
+
+        // $('.head').hide();
+
+        $('.AfterCalculation').show();
+
+        //show the calculate button
+
+        $('.calculatebuttoncontainer').hide();
+
+        //hide the summary
+
+
+
+        //hide the email form
+
+        $('.emailbuttoncontainer').show();
+
+        $('.emailaddressform').hide();
+
+        //$("#TaxSummary").show();
+
+        //$(".msgalert").show();
+
+    }
+
+
+
+</script>
+
+
+        <ul class="arrow-shaped-bullet">
+
+            
+
+            <ul style ="margin-left:5px">
+
+           
+
+            <li style="list-style-type:none"></li>
+          </ul>
+    </form>
+
+</body>
+
+</html>
+
